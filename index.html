@@ -9,6 +9,7 @@ body {
   font-family:sans-serif;
   background:#0f0a1a;
   color:white;
+  overflow-x:hidden;
 }
 
 /* FIRST SCREEN */
@@ -18,8 +19,10 @@ body {
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  position:relative;
 }
 
+/* BUTTONS */
 button {
   padding:12px 20px;
   margin:10px;
@@ -27,14 +30,19 @@ button {
   border:none;
 }
 
-.yes { background:#6f5cff; color:white; }
-.no { background:#333; color:white; }
+.yes, .no {
+  background:#333;
+  color:white;
+  transition:0.2s;
+}
 
 .special {
   background:#bba6ff;
   color:#1a102b;
   font-weight:bold;
   box-shadow:0 0 15px rgba(187,166,255,0.5);
+  position:absolute;
+  bottom:60px;
 }
 
 /* FLOATING WORDS */
@@ -53,7 +61,7 @@ button {
 /* SECTIONS */
 .section {
   position:relative;
-  height:100vh;
+  height:90vh;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -67,25 +75,69 @@ button {
   filter:brightness(0.4);
 }
 
+/* ✅ FIX: PHOTO 4 FULL VIEW */
+.section:nth-of-type(4) img {
+  object-fit:contain;
+}
+
+/* TEXT */
 .text {
-  position:relative;
+  position:absolute;
+  top:40px;
+  left:50%;
+  transform:translateX(-50%);
   background:rgba(0,0,0,0.4);
   padding:20px;
   border-radius:15px;
   max-width:600px;
+  line-height:1.7;
+}
+
+/* SLIDESHOW */
+.slider {
+  position:relative;
+  width:90%;
+  max-width:400px;
+  height:300px;
+  overflow:hidden;
+  border-radius:15px;
+}
+
+.slider img {
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  animation:slideShow 12s infinite;
+}
+
+.slider img:nth-child(1){animation-delay:0s;}
+.slider img:nth-child(2){animation-delay:4s;}
+.slider img:nth-child(3){animation-delay:8s;}
+
+@keyframes slideShow {
+  0%{opacity:0;}
+  10%{opacity:1;}
+  30%{opacity:1;}
+  40%{opacity:0;}
+  100%{opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- BUTTON SCREEN -->
+<!-- FIRST SCREEN -->
 <div class="center">
 <h2>Is this chitkus? 😗</h2>
 
-<button class="yes" onclick="openSite()">a) Yes</button>
-<button class="no" onclick="openSite()">b) No</button>
-<button class="special" onclick="openSite()">c) Meecckksss 😘💖</button>
+<button class="yes" onmouseover="runAway(this)">a) Yes 😄</button>
+<button class="no" onmouseover="runAway(this)">b) No 😜</button>
+
+<button class="special" onclick="openSite()" onmouseover="runSpecial(this)">
+  Meecckksss 😘✨
+</button>
 </div>
 
 <!-- FLOATING WORDS -->
@@ -98,58 +150,56 @@ button {
 <span style="left:80%">ooshuli</span>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div id="main" style="display:none;">
 
 <div class="section">
-<img src="photo1.png">
+<img src="photo1.jpg">
 <div class="text">
-
 To my chitkudu putkudu rani 😚❤️ <br><br>
-
 Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada <br>
 Na andhalu rani nuvvu. Mecks pitta vi <br><br>
-
 Ne kosam ee aalochistha amma eppudu nuvvu ee maata cheppina adhe idhi ga thesukunta nenu. <br>
 Naku evaru unnaru kanna nuvvu thappa 🫂🫤
-
 </div>
 </div>
 
 <div class="section">
 <img src="photo2.jpg">
 <div class="text">
-
 Sorry chittudu ninnu badha petta monna <br>
 Manasu em bale amma appatinunchi .<br><br>
-
 Bega idhi edokati chesukuni bega ocheddam <br>
 Neku baga avthadi ani naku telusu anni baga chesukundhugani
-
 </div>
 </div>
 
 <div class="section">
 <img src="photo3.jpg">
 <div class="text">
-
 Chala khastapaduthunnav amma nuvvu 🫂..<br>
 Ne kastam chusi chala badha ga untadi amma em cheyyalekapotha ikkada undi🥺.<br><br>
-
 Neku chala talent undi amma nuvvu ninu eppudu thakkuva anukoku
-
 </div>
 </div>
 
 <div class="section">
-<img src="photo4.jpg">
+<img src="photo4.png">
 <div class="text">
-
 Nuvvu me mummy lage 🫂.....<br><br>
-
 Love you amma ❤️🤍<br>
 Istalu ra meeecckkkssss rani 🍑 😙 😙 😙 😙 😙 😙 😙 😙 🤍
+</div>
+</div>
 
+<!-- SLIDESHOW -->
+<div class="section">
+<div class="text">Some of my favorite moments 💜</div>
+
+<div class="slider">
+<img src="photo5.jpg">
+<img src="photo6.jpg">
+<img src="photo7.jpg">
 </div>
 </div>
 
@@ -164,7 +214,17 @@ function openSite(){
   document.querySelector('.center').style.display='none';
   document.getElementById('main').style.display='block';
 }
-</script>
 
-</body>
-</html>
+function runAway(btn){
+  btn.style.position="absolute";
+  btn.style.top=Math.random()*80+"%";
+  btn.style.left=Math.random()*80+"%";
+}
+
+let count = 0;
+function runSpecial(btn){
+  if(count < 3){
+    btn.style.position="absolute";
+    btn.style.top=Math.random()*80+"%";
+    btn.style.left=Math.random()*80+"%";
+    count
