@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  font-family:sans-serif;
+  background:#0f0a1a;
+  color:white;
+}
+
+/* FIRST SCREEN */
+.center {
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+button {
+  padding:12px 20px;
+  margin:10px;
+  border-radius:20px;
+  border:none;
+}
+
+.yes { background:#6f5cff; color:white; }
+.no { background:#333; color:white; }
+
+.special {
+  background:#bba6ff;
+  color:#1a102b;
+  font-weight:bold;
+  box-shadow:0 0 15px rgba(187,166,255,0.5);
+}
+
+/* FLOATING WORDS */
+.floating span {
+  position:fixed;
+  color:rgba(255,255,255,0.1);
+  font-size:13px;
+  animation:float 15s linear infinite;
+}
+
+@keyframes float {
+  0%{ top:100%; }
+  100%{ top:-10%; }
+}
+
+/* SECTIONS */
+.section {
+  position:relative;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.section img {
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.4);
+}
+
+.text {
+  position:relative;
+  background:rgba(0,0,0,0.4);
+  padding:20px;
+  border-radius:15px;
+  max-width:600px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BUTTON SCREEN -->
+<div class="center">
+<h2>Is this chitkus? 😗</h2>
+
+<button class="yes" onclick="openSite()">a) Yes</button>
+<button class="no" onclick="openSite()">b) No</button>
+<button class="special" onclick="openSite()">c) Meecckksss 😘💖</button>
+</div>
+
+<!-- FLOATING WORDS -->
+<div class="floating">
+<span style="left:10%">chitkudu</span>
+<span style="left:30%">gochi rani</span>
+<span style="left:50%">budaga</span>
+<span style="left:70%">muddu</span>
+<span style="left:20%">kattu</span>
+<span style="left:80%">ooshuli</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main" style="display:none;">
+
+<div class="section">
+<img src="photo1.jpg">
+<div class="text">
+
+To my chitkudu putkudu rani 😚❤️ <br><br>
+
+Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada <br>
+Na andhalu rani nuvvu. Mecks pitta vi <br><br>
+
+Ne kosam ee aalochistha amma eppudu nuvvu ee maata cheppina adhe idhi ga thesukunta nenu. <br>
+Naku evaru unnaru kanna nuvvu thappa 🫂🫤
+
+</div>
+</div>
+
+<div class="section">
+<img src="photo2.jpg">
+<div class="text">
+
+Sorry chittudu ninnu badha petta monna <br>
+Manasu em bale amma appatinunchi .<br><br>
+
+Bega idhi edokati chesukuni bega ocheddam <br>
+Neku baga avthadi ani naku telusu anni baga chesukundhugani
+
+</div>
+</div>
+
+<div class="section">
+<img src="photo3.jpg">
+<div class="text">
+
+Chala khastapaduthunnav amma nuvvu 🫂..<br>
+Ne kastam chusi chala badha ga untadi amma em cheyyalekapotha ikkada undi🥺.<br><br>
+
+Neku chala talent undi amma nuvvu ninu eppudu thakkuva anukoku
+
+</div>
+</div>
+
+<div class="section">
+<img src="photo4.jpg">
+<div class="text">
+
+Nuvvu me mummy lage 🫂.....<br><br>
+
+Love you amma ❤️🤍<br>
+Istalu ra meeecckkkssss rani 🍑 😙 😙 😙 😙 😙 😙 😙 😙 🤍
+
+</div>
+</div>
+
+<p style="text-align:center; opacity:0.7;">
+Distance is temporary, love is permanent 💜
+</p>
+
+</div>
+
+<script>
+function openSite(){
+  document.querySelector('.center').style.display='none';
+  document.getElementById('main').style.display='block';
+}
+</script>
+
+</body>
+</html>
