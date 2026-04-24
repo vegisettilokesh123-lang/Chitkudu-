@@ -4,16 +4,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
+body{
   margin:0;
   font-family:sans-serif;
   background:#0f0a1a;
   color:white;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
-/* FIRST SCREEN */
-.center {
+/* ENTRY SCREEN */
+.center{
   height:100vh;
   display:flex;
   flex-direction:column;
@@ -23,43 +23,40 @@ body {
 }
 
 /* BUTTONS */
-button {
+button{
   padding:12px 20px;
   margin:10px;
   border-radius:20px;
   border:none;
 }
 
-.yes, .no {
+.yes,.no{
   background:#333;
   color:white;
-  transition:0.2s;
 }
 
-.special {
+.special{
   background:#bba6ff;
   color:#1a102b;
   font-weight:bold;
-  box-shadow:0 0 15px rgba(187,166,255,0.5);
-  position:absolute;
-  bottom:60px;
+  box-shadow:0 0 15px rgba(187,166,255,0.6);
 }
 
-/* FLOATING WORDS */
-.floating span {
-  position:fixed;
-  color:rgba(255,255,255,0.1);
-  font-size:13px;
-  animation:float 15s linear infinite;
+/* MAIN CONTENT */
+#main{
+  display:none;
+  animation:fadeIn 1s ease forwards;
+  overflow:auto;
+  height:100vh;
 }
 
-@keyframes float {
-  0%{ top:100%; }
-  100%{ top:-10%; }
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(1.05);}
+  to{opacity:1; transform:scale(1);}
 }
 
 /* SECTIONS */
-.section {
+.section{
   position:relative;
   height:90vh;
   display:flex;
@@ -67,7 +64,7 @@ button {
   align-items:center;
 }
 
-.section img {
+.section img{
   position:absolute;
   width:100%;
   height:100%;
@@ -75,13 +72,13 @@ button {
   filter:brightness(0.4);
 }
 
-/* ✅ FIX: PHOTO 4 FULL VIEW */
-.section:nth-of-type(4) img {
+/* PHOTO4 FULL */
+.section:nth-of-type(4) img{
   object-fit:contain;
 }
 
 /* TEXT */
-.text {
+.text{
   position:absolute;
   top:40px;
   left:50%;
@@ -91,67 +88,69 @@ button {
   border-radius:15px;
   max-width:600px;
   line-height:1.7;
+  opacity:0;
+  animation:fadeText 1s forwards;
 }
 
-/* SLIDESHOW */
-.slider {
-  position:relative;
+@keyframes fadeText{
+  to{opacity:1;}
+}
+
+/* SLIDER */
+.slider{
   width:90%;
   max-width:400px;
   height:300px;
+  position:relative;
   overflow:hidden;
   border-radius:15px;
 }
 
-.slider img {
+.slider img{
   position:absolute;
   width:100%;
   height:100%;
   object-fit:cover;
   opacity:0;
-  animation:slideShow 12s infinite;
+  animation:slide 12s infinite;
 }
 
 .slider img:nth-child(1){animation-delay:0s;}
 .slider img:nth-child(2){animation-delay:4s;}
 .slider img:nth-child(3){animation-delay:8s;}
 
-@keyframes slideShow {
+@keyframes slide{
   0%{opacity:0;}
   10%{opacity:1;}
   30%{opacity:1;}
   40%{opacity:0;}
   100%{opacity:0;}
 }
+
+/* CANVAS WORDS */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+}
 </style>
 </head>
 
 <body>
 
-<!-- FIRST SCREEN -->
 <div class="center">
 <h2>Is this chitkus? 😗</h2>
 
-<button class="yes" onmouseover="runAway(this)">a) Yes 😄</button>
-<button class="no" onmouseover="runAway(this)">b) No 😜</button>
+<button onclick="runAway(this)">a) Yes 😄</button>
+<button onclick="runAway(this)">b) No 😜</button>
 
-<button class="special" onclick="openSite()" onmouseover="runSpecial(this)">
-  Meecckksss 😘✨
-</button>
+<button class="special" onclick="handleSpecial(this)">Meecckksss 😘✨</button>
 </div>
 
-<!-- FLOATING WORDS -->
-<div class="floating">
-<span style="left:10%">chitkudu</span>
-<span style="left:30%">gochi rani</span>
-<span style="left:50%">budaga</span>
-<span style="left:70%">muddu</span>
-<span style="left:20%">kattu</span>
-<span style="left:80%">ooshuli</span>
-</div>
+<canvas id="canvas"></canvas>
 
-<!-- MAIN -->
-<div id="main" style="display:none;">
+<div id="main">
 
 <div class="section">
 <img src="photo1.jpg">
@@ -159,8 +158,7 @@ button {
 To my chitkudu putkudu rani 😚❤️ <br><br>
 Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada <br>
 Na andhalu rani nuvvu. Mecks pitta vi <br><br>
-Ne kosam ee aalochistha amma eppudu nuvvu ee maata cheppina adhe idhi ga thesukunta nenu. <br>
-Naku evaru unnaru kanna nuvvu thappa 🫂🫤
+Ne kosam ee aalochistha amma...
 </div>
 </div>
 
@@ -168,34 +166,27 @@ Naku evaru unnaru kanna nuvvu thappa 🫂🫤
 <img src="photo2.jpg">
 <div class="text">
 Sorry chittudu ninnu badha petta monna <br>
-Manasu em bale amma appatinunchi .<br><br>
-Bega idhi edokati chesukuni bega ocheddam <br>
-Neku baga avthadi ani naku telusu anni baga chesukundhugani
+Manasu em bale amma...
 </div>
 </div>
 
 <div class="section">
 <img src="photo3.jpg">
 <div class="text">
-Chala khastapaduthunnav amma nuvvu 🫂..<br>
-Ne kastam chusi chala badha ga untadi amma em cheyyalekapotha ikkada undi🥺.<br><br>
-Neku chala talent undi amma nuvvu ninu eppudu thakkuva anukoku
+Chala khastapaduthunnav amma nuvvu 🫂..
 </div>
 </div>
 
 <div class="section">
 <img src="photo4.png">
 <div class="text">
-Nuvvu me mummy lage 🫂.....<br><br>
 Love you amma ❤️🤍<br>
-Istalu ra meeecckkkssss rani 🍑 😙 😙 😙 😙 😙 😙 😙 😙 🤍
+Istalu ra meeecckkkssss rani 💜
 </div>
 </div>
 
-<!-- SLIDESHOW -->
 <div class="section">
 <div class="text">Some of my favorite moments 💜</div>
-
 <div class="slider">
 <img src="photo5.jpg">
 <img src="photo6.jpg">
@@ -203,7 +194,7 @@ Istalu ra meeecckkkssss rani 🍑 😙 😙 😙 😙 😙 😙 😙 😙 🤍
 </div>
 </div>
 
-<p style="text-align:center; opacity:0.7;">
+<p style="text-align:center;opacity:0.7;">
 Distance is temporary, love is permanent 💜
 </p>
 
@@ -221,10 +212,54 @@ function runAway(btn){
   btn.style.left=Math.random()*80+"%";
 }
 
-let count = 0;
-function runSpecial(btn){
-  if(count < 3){
-    btn.style.position="absolute";
-    btn.style.top=Math.random()*80+"%";
-    btn.style.left=Math.random()*80+"%";
-    count
+let count=0;
+function handleSpecial(btn){
+  if(count<3){
+    runAway(btn);
+    count++;
+  }else{
+    openSite();
+  }
+}
+
+/* PHYSICS WORDS */
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let words=["chitkudu","gochi rani","budaga","muddu","kattu","ooshuli"];
+
+let balls=words.map(w=>({
+  text:w,
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  dx:(Math.random()-0.5)*2,
+  dy:(Math.random()-0.5)*2
+}));
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.font="20px sans-serif";
+  ctx.fillStyle="#caaaff";
+  ctx.shadowBlur=15;
+  ctx.shadowColor="#caaaff";
+
+  balls.forEach(b=>{
+    ctx.fillText(b.text,b.x,b.y);
+
+    b.x+=b.dx;
+    b.y+=b.dy;
+
+    if(b.x<0||b.x>canvas.width) b.dx*=-1;
+    if(b.y<0||b.y>canvas.height) b.dy*=-1;
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+</body>
+</html>
