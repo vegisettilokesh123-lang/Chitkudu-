@@ -133,37 +133,36 @@ button:hover{
   100%{opacity:0;}
 }
 
-/* CANVAS WORDS */
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  pointer-events:none;
+/* MESSAGE */
+#message{
+  margin-top:20px;
+  font-size:18px;
+  text-align:center;
 }
 </style>
 </head>
 
 <body>
 
+<!-- ENTRY SCREEN -->
 <div class="center">
 <h2>Is this chitkus? 😗</h2>
 
-<!-- UPDATED BUTTON TEXT -->
-<button class="yes" onclick="runAway(this)">Jhooth thonti 😂</button>
-<button class="no" onclick="runAway(this)">Jhooth aaipedu 😜</button>
+<button class="yes" onclick="showText('yes')">Jhooth thonti 😂</button>
+<button class="no" onclick="showText('no')">Jhooth aaipedu 😜</button>
 
-<button class="special" onclick="handleSpecial(this)">Meecckksss 😘✨</button>
+<button class="special" onclick="handleSpecial()">Meecckksss 😘✨</button>
+
+<p id="message"></p>
 </div>
 
-<canvas id="canvas"></canvas>
-
+<!-- MAIN -->
 <div id="main">
 
 <div class="section">
 <img src="photo1.png">
 <div class="text">
-To my chitkudu putkudu rani 😚❤️ <br><br>
-Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada
+To my chitkudu putkudu rani 😚❤️
 </div>
 </div>
 
@@ -177,7 +176,7 @@ Sorry chittudu 🥺
 <div class="section">
 <img src="photo3.jpg">
 <div class="text">
-Chala strong amma 🫂❤️
+You are strong 💜
 </div>
 </div>
 
@@ -189,7 +188,7 @@ Love you amma ❤️🤍
 </div>
 
 <div class="section">
-<div class="text">mecks andhalu chudu 💜</div>
+<div class="text">Mecks andhalu chudu 💜</div>
 
 <div class="slider">
 <img src="photo5.jpg">
@@ -206,66 +205,35 @@ Jlai khuad potato 😂😚🎂
 
 <script>
 
-function openSite(){
-  document.querySelector('.center').style.display='none';
-  document.getElementById('main').style.display='block';
-}
+/* YES / NO TEXT */
+function showText(type){
+  let msg = document.getElementById("message");
 
-function runAway(btn){
-  btn.style.position="absolute";
-
-  // keep inside screen properly
-  btn.style.top=Math.random()*70+"%";
-  btn.style.left=Math.random()*70+"%";
-}
-
-let count=0;
-function handleSpecial(btn){
-  if(count<3){
-    runAway(btn);
-    count++;
-  }else{
-    openSite();
+  if(type === "yes"){
+    msg.innerHTML = "😄 I knew it! You said YES 💜";
+  }
+  else if(type === "no"){
+    msg.innerHTML = "😜 Ayyoo! You said NO but still you matter ❤️";
   }
 }
 
-/* PHYSICS WORDS */
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* MECKS BUTTON */
+let count = 0;
 
-let words=["chitkudu","gochi rani","budaga","muddu","kattu","ooshuli"];
+function handleSpecial(){
+  let btn = document.querySelector(".special");
 
-let balls=words.map(w=>({
-  text:w,
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  dx:(Math.random()-0.5)*2,
-  dy:(Math.random()-0.5)*2
-}));
-
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.font="20px sans-serif";
-  ctx.fillStyle="#caaaff";
-  ctx.shadowBlur=15;
-  ctx.shadowColor="#caaaff";
-
-  balls.forEach(b=>{
-    ctx.fillText(b.text,b.x,b.y);
-
-    b.x+=b.dx;
-    b.y+=b.dy;
-
-    if(b.x<0||b.x>canvas.width) b.dx*=-1;
-    if(b.y<0||b.y>canvas.height) b.dy*=-1;
-  });
-
-  requestAnimationFrame(draw);
+  if(count < 3){
+    btn.style.position = "absolute";
+    btn.style.top = Math.random()*70 + "%";
+    btn.style.left = Math.random()*70 + "%";
+    count++;
+  } else {
+    document.querySelector(".center").style.display = "none";
+    document.getElementById("main").style.display = "block";
+  }
 }
 
-draw();
 </script>
 
 </body>
