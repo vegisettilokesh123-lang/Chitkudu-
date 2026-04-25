@@ -28,6 +28,12 @@ button{
   margin:10px;
   border-radius:20px;
   border:none;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
 }
 
 .yes,.no{
@@ -142,8 +148,9 @@ canvas{
 <div class="center">
 <h2>Is this chitkus? 😗</h2>
 
-<button onclick="runAway(this)">a) Yes 😄</button>
-<button onclick="runAway(this)">b) No 😜</button>
+<!-- UPDATED BUTTON TEXT -->
+<button class="yes" onclick="runAway(this)">Jhooth thonti 😂</button>
+<button class="no" onclick="runAway(this)">Jhooth aaipedu 😜</button>
 
 <button class="special" onclick="handleSpecial(this)">Meecckksss 😘✨</button>
 </div>
@@ -156,37 +163,34 @@ canvas{
 <img src="photo1.png">
 <div class="text">
 To my chitkudu putkudu rani 😚❤️ <br><br>
-Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada <br>
-Na andhalu rani nuvvu. Mecks pitta vi <br><br>
-Ne kosam ee aalochistha amma assala avvatle duram ga undi . bega ocheddam kanna na godhu pandu kadha 😚 neku paalu ukkiri chesi pedatha inka boledu cook chestha 😚😚❤️🫂🍑
+Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada
 </div>
 </div>
 
 <div class="section">
 <img src="photo2.jpg">
 <div class="text">
-Sorry chittudu ninnu badha petta monna <br>
-Manasu em bale amma.🥺.
+Sorry chittudu 🥺
 </div>
 </div>
 
 <div class="section">
 <img src="photo3.jpg">
 <div class="text">
-Chala khastapaduthunnav amma nuvvu 🫂. chala chala baga chesukuntunnav ilage chesukovali muddu ❤️.
+Chala strong amma 🫂❤️
 </div>
 </div>
 
 <div class="section">
 <img src="photo4.jpg">
 <div class="text">
-Love you amma ❤️🤍<br>
-Istalu ra meeecckkkssss rani 💜
+Love you amma ❤️🤍
 </div>
 </div>
 
 <div class="section">
-<div class="text">mecks andhalu chudu💜</div>
+<div class="text">mecks andhalu chudu 💜</div>
+
 <div class="slider">
 <img src="photo5.jpg">
 <img src="photo6.jpg">
@@ -195,12 +199,13 @@ Istalu ra meeecckkkssss rani 💜
 </div>
 
 <p style="text-align:center;opacity:0.7;">
-Jlai khuad potato 😂😚🎂😘😁
+Jlai khuad potato 😂😚🎂
 </p>
 
 </div>
 
 <script>
+
 function openSite(){
   document.querySelector('.center').style.display='none';
   document.getElementById('main').style.display='block';
@@ -208,8 +213,10 @@ function openSite(){
 
 function runAway(btn){
   btn.style.position="absolute";
-  btn.style.top=Math.random()*80+"%";
-  btn.style.left=Math.random()*80+"%";
+
+  // keep inside screen properly
+  btn.style.top=Math.random()*70+"%";
+  btn.style.left=Math.random()*70+"%";
 }
 
 let count=0;
