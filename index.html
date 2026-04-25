@@ -29,11 +29,6 @@ button{
   border-radius:20px;
   border:none;
   cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.05);
 }
 
 .yes,.no{
@@ -78,11 +73,6 @@ button:hover{
   filter:brightness(0.4);
 }
 
-/* PHOTO4 FULL */
-.section:nth-of-type(4) img{
-  object-fit:contain;
-}
-
 /* TEXT */
 .text{
   position:absolute;
@@ -94,12 +84,6 @@ button:hover{
   border-radius:15px;
   max-width:600px;
   line-height:1.7;
-  opacity:0;
-  animation:fadeText 1s forwards;
-}
-
-@keyframes fadeText{
-  to{opacity:1;}
 }
 
 /* SLIDER */
@@ -133,11 +117,12 @@ button:hover{
   100%{opacity:0;}
 }
 
-/* MESSAGE */
-#message{
-  margin-top:20px;
-  font-size:18px;
-  text-align:center;
+/* CANVAS */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
 }
 </style>
 </head>
@@ -148,47 +133,54 @@ button:hover{
 <div class="center">
 <h2>Is this chitkus? 😗</h2>
 
-<button class="yes" onclick="showText('yes')">Jhooth thonti 😂</button>
-<button class="no" onclick="showText('no')">Jhooth aaipedu 😜</button>
+<!-- ORIGINAL BEHAVIOR RESTORED (RUN AWAY) -->
+<button class="yes" onmouseover="runAway(this)">a) Yes 😄</button>
+<button class="no" onmouseover="runAway(this)">b) No 😜</button>
 
+<!-- ONLY ENTRY BUTTON -->
 <button class="special" onclick="handleSpecial()">Meecckksss 😘✨</button>
-
-<p id="message"></p>
 </div>
 
-<!-- MAIN -->
+<canvas id="canvas"></canvas>
+
+<!-- MAIN CONTENT (UNCHANGED TEXT) -->
 <div id="main">
 
 <div class="section">
 <img src="photo1.png">
 <div class="text">
-To my chitkudu putkudu rani 😚❤️
+To my chitkudu putkudu rani 😚❤️ <br><br>
+Ooshili andhalu chusi chitkudu putkudu aaipothunna nenu ikkada <br>
+Na andhalu rani nuvvu. Mecks pitta vi <br><br>
+Ne kosam ee aalochistha amma assala avvatle duram ga undi . bega ocheddam kanna na godhu pandu kadha 😚 neku paalu ukkiri chesi pedatha inka boledu cook chestha 😚😚❤️🫂🍑
 </div>
 </div>
 
 <div class="section">
 <img src="photo2.jpg">
 <div class="text">
-Sorry chittudu 🥺
+Sorry chittudu ninnu badha petta monna <br>
+Manasu em bale amma.🥺.
 </div>
 </div>
 
 <div class="section">
 <img src="photo3.jpg">
 <div class="text">
-You are strong 💜
+Chala khastapaduthunnav amma nuvvu 🫂. chala chala baga chesukuntunnav ilage chesukovali muddu ❤️.
 </div>
 </div>
 
 <div class="section">
 <img src="photo4.jpg">
 <div class="text">
-Love you amma ❤️🤍
+Love you amma ❤️🤍<br>
+Istalu ra meeecckkkssss rani 💜
 </div>
 </div>
 
 <div class="section">
-<div class="text">Mecks andhalu chudu 💜</div>
+<div class="text">mecks andhalu chudu💜</div>
 
 <div class="slider">
 <img src="photo5.jpg">
@@ -198,26 +190,21 @@ Love you amma ❤️🤍
 </div>
 
 <p style="text-align:center;opacity:0.7;">
-Jlai khuad potato 😂😚🎂
+Jlai khuad potato 😂😚🎂😘😁
 </p>
 
 </div>
 
 <script>
 
-/* YES / NO TEXT */
-function showText(type){
-  let msg = document.getElementById("message");
-
-  if(type === "yes"){
-    msg.innerHTML = "😄 I knew it! You said YES 💜";
-  }
-  else if(type === "no"){
-    msg.innerHTML = "😜 Ayyoo! You said NO but still you matter ❤️";
-  }
+/* RUN AWAY BUTTON (RESTORED ORIGINAL FEATURE) */
+function runAway(btn){
+  btn.style.position="absolute";
+  btn.style.top=Math.random()*80+"%";
+  btn.style.left=Math.random()*80+"%";
 }
 
-/* MECKS BUTTON */
+/* ONLY MECCKSS CONTROLS ENTRY */
 let count = 0;
 
 function handleSpecial(){
@@ -225,14 +212,50 @@ function handleSpecial(){
 
   if(count < 3){
     btn.style.position = "absolute";
-    btn.style.top = Math.random()*70 + "%";
-    btn.style.left = Math.random()*70 + "%";
+    btn.style.top = Math.random()*80 + "%";
+    btn.style.left = Math.random()*80 + "%";
     count++;
   } else {
     document.querySelector(".center").style.display = "none";
     document.getElementById("main").style.display = "block";
   }
 }
+
+/* FLOATING WORDS */
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let words=["chitkudu","gochi rani","budaga","muddu","kattu","ooshuli"];
+
+let balls=words.map(w=>({
+  text:w,
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  dx:(Math.random()-0.5)*2,
+  dy:(Math.random()-0.5)*2
+}));
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.font="20px sans-serif";
+  ctx.fillStyle="#caaaff";
+
+  balls.forEach(b=>{
+    ctx.fillText(b.text,b.x,b.y);
+
+    b.x+=b.dx;
+    b.y+=b.dy;
+
+    if(b.x<0||b.x>canvas.width) b.dx*=-1;
+    if(b.y<0||b.y>canvas.height) b.dy*=-1;
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
 
 </script>
 
